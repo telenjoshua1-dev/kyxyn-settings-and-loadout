@@ -1,1 +1,286 @@
+/* =========================================================
+   CODM LOADOUT HUB - style.css
+   Mobile-first: base styles are for phones,
+   @media (min-width) blocks enlarge things for tablets/PC.
+   ========================================================= */
 
+/* ---------- 1. Colors & basics (edit colors here) ---------- */
+:root {
+  --bg: #0b0b0d;
+  --panel: #151517;
+  --panel-2: #1d1d20;
+  --line: #2a2a2e;
+  --text: #ececec;
+  --muted: #8d8d94;
+  --red: #d62d2d;
+  --red-soft: rgba(214, 45, 45, 0.15);
+  --radius: 12px;
+  --font: "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; -webkit-tap-highlight-color: transparent; }
+html { scroll-behavior: smooth; }
+
+body {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font);
+  color: var(--text);
+  background:
+    radial-gradient(circle at 80% -10%, rgba(214, 45, 45, 0.12), transparent 45%),
+    linear-gradient(180deg, #0b0b0d, #101012);
+  background-attachment: fixed;
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+
+button { font-family: inherit; color: inherit; cursor: pointer; border: none; background: none; }
+[hidden] { display: none !important; }
+
+/* ---------- 2. Layout ---------- */
+.app { flex: 1; width: 100%; max-width: 960px; margin: 0 auto; padding: 16px; }
+
+.view { animation: fadeUp 0.35s ease both; }
+
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-title {
+  font-size: 1.4rem;
+  letter-spacing: 3px;
+  margin: 6px 0 16px;
+  padding-left: 12px;
+  border-left: 4px solid var(--red);
+}
+
+.grid { display: grid; grid-template-columns: 1fr; gap: 12px; }
+
+/* ---------- 3. Top bar ---------- */
+.topbar {
+  position: sticky; top: 0; z-index: 10;
+  display: flex; align-items: center; gap: 12px;
+  padding: calc(10px + env(safe-area-inset-top)) 16px 10px;
+  background: rgba(11, 11, 13, 0.95);
+  border-bottom: 1px solid var(--line);
+}
+.topbar-title { color: var(--muted); letter-spacing: 2px; font-size: 0.8rem; text-transform: uppercase; }
+
+/* ---------- 4. Buttons ---------- */
+.btn {
+  min-height: 44px;               /* touch-friendly size */
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--panel-2);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  font-size: 0.8rem;
+  transition: transform 0.15s, background 0.2s, border-color 0.2s;
+}
+.btn:hover { border-color: var(--red); }
+.btn:active { transform: scale(0.96); }
+.btn-small { min-height: 40px; padding: 0 14px; }
+.btn-red { background: var(--red); border-color: var(--red); }
+.btn-ghost { background: transparent; }
+
+/* ---------- 5. Hero & profile ---------- */
+.hero { padding: 18px 0 8px; }
+.hero-tag { color: var(--red); letter-spacing: 3px; font-size: 0.72rem; font-weight: 700; }
+.hero-title { font-size: 2.4rem; letter-spacing: 4px; line-height: 1.1; margin: 6px 0 18px; }
+.hero-title span { color: var(--red); }
+
+.profile {
+  display: flex; align-items: center; gap: 12px;
+  padding: 14px;
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-left: 4px solid var(--red);
+  border-radius: var(--radius);
+}
+.avatar {
+  width: 54px; height: 54px; flex-shrink: 0;
+  display: grid; place-items: center;
+  font-size: 1.5rem; font-weight: 800;
+  background: linear-gradient(135deg, var(--red), #6d1414);
+  border-radius: 10px;
+}
+.profile-info { flex: 1; min-width: 0; }
+.profile-label { color: var(--muted); font-size: 0.65rem; letter-spacing: 2px; }
+.profile-name { font-size: 1.2rem; letter-spacing: 1px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.profile-sub { color: var(--muted); font-size: 0.8rem; }
+
+.name-editor { display: flex; gap: 8px; margin-top: 10px; }
+.name-editor input {
+  flex: 1; min-width: 0; min-height: 44px; padding: 0 12px;
+  background: var(--panel-2); color: var(--text);
+  border: 1px solid var(--line); border-radius: 8px;
+  font-size: 16px;                /* 16px stops iPhone zoom-on-focus */
+}
+.name-editor input:focus { outline: none; border-color: var(--red); }
+
+/* ---------- 6. Home menu ---------- */
+.menu { display: grid; grid-template-columns: 1fr; gap: 12px; margin-top: 18px; }
+.menu-btn {
+  position: relative; overflow: hidden;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 2px;
+  min-height: 92px; padding: 16px 18px;
+  text-align: left;
+  background: linear-gradient(135deg, var(--panel), var(--panel-2));
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  transition: transform 0.15s, border-color 0.2s;
+}
+.menu-btn::after {              /* red slide-in bar on hover/tap */
+  content: ""; position: absolute; left: 0; bottom: 0;
+  height: 3px; width: 0; background: var(--red);
+  transition: width 0.3s ease;
+}
+.menu-btn:hover, .menu-btn:focus-visible { border-color: var(--red); }
+.menu-btn:hover::after, .menu-btn:active::after, .menu-btn:focus-visible::after { width: 100%; }
+.menu-btn:active { transform: scale(0.98); }
+.menu-num { color: var(--red); font-size: 0.75rem; font-weight: 700; letter-spacing: 2px; }
+.menu-name { font-size: 1.25rem; font-weight: 800; letter-spacing: 3px; }
+.menu-desc { color: var(--muted); font-size: 0.8rem; }
+
+/* ---------- 7. Tabs, chips, segmented control ---------- */
+.segmented { display: flex; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; padding: 4px; margin-bottom: 12px; }
+.segmented button {
+  flex: 1; min-height: 44px; border-radius: 7px;
+  font-weight: 800; letter-spacing: 2px; color: var(--muted);
+  transition: background 0.2s, color 0.2s;
+}
+.segmented button.active { background: var(--red); color: #fff; }
+
+.chips { display: flex; gap: 8px; overflow-x: auto; padding-bottom: 8px; margin-bottom: 8px; scrollbar-width: none; }
+.chips::-webkit-scrollbar { display: none; }
+.chip {
+  flex-shrink: 0; min-height: 40px; padding: 0 16px;
+  border: 1px solid var(--line); border-radius: 999px;
+  background: var(--panel); color: var(--muted);
+  font-size: 0.8rem; font-weight: 700; letter-spacing: 1px;
+  transition: all 0.2s;
+}
+.chip.active { color: #fff; border-color: var(--red); background: var(--red-soft); }
+
+/* ---------- 8. Cards (weapons, settings, sensitivity) ---------- */
+.card {
+  background: var(--panel);
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  padding: 14px;
+  animation: fadeUp 0.35s ease both;
+}
+.card-head { display: flex; justify-content: space-between; align-items: center; gap: 8px; margin-bottom: 10px; }
+.card-title { font-size: 1.05rem; letter-spacing: 1px; }
+.tag {
+  font-size: 0.65rem; font-weight: 700; letter-spacing: 1.5px;
+  padding: 4px 8px; border-radius: 4px;
+  color: var(--red); background: var(--red-soft);
+  white-space: nowrap;
+}
+
+/* Weapon image placeholder (pure CSS) */
+.weapon-img {
+  height: 110px; margin-bottom: 12px;
+  display: grid; place-items: center;
+  border-radius: 8px; overflow: hidden;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 10px, rgba(255,255,255,0.02) 10px 20px),
+    linear-gradient(135deg, #1a1a1d, #0f0f11);
+  border: 1px dashed var(--line);
+  color: #3a3a40; font-size: 2.6rem; font-weight: 900; letter-spacing: 4px;
+}
+.weapon-img img { width: 100%; height: 100%; object-fit: contain; }
+
+.attach-list { list-style: none; }
+.attach-list li {
+  display: flex; justify-content: space-between; gap: 10px;
+  padding: 9px 0; border-top: 1px solid var(--line); font-size: 0.88rem;
+}
+.attach-slot { color: var(--muted); }
+.attach-name { font-weight: 600; text-align: right; }
+
+/* Settings rows */
+.row {
+  display: flex; justify-content: space-between; align-items: center; gap: 10px;
+  padding: 9px 0; border-top: 1px solid var(--line); font-size: 0.9rem;
+}
+.row-label { color: var(--muted); }
+.row-value { font-weight: 700; text-align: right; }
+
+/* Sensitivity rows */
+.sens-actions { margin-bottom: 12px; }
+.sens-row { display: flex; align-items: center; gap: 10px; padding: 10px 0; border-top: 1px solid var(--line); }
+.sens-label { flex: 1; font-size: 0.88rem; color: var(--muted); }
+.sens-value { font-size: 1.3rem; font-weight: 800; color: var(--text); min-width: 48px; text-align: right; }
+.copy-btn {
+  min-height: 40px; min-width: 64px; padding: 0 10px;
+  border: 1px solid var(--line); border-radius: 8px;
+  font-size: 0.7rem; font-weight: 700; letter-spacing: 1px;
+  background: var(--panel-2); transition: all 0.2s;
+}
+.copy-btn:hover { border-color: var(--red); }
+.copy-btn:active { transform: scale(0.94); }
+
+/* ---------- 9. Social buttons ---------- */
+.social-list { display: grid; grid-template-columns: 1fr; gap: 12px; }
+.social-btn {
+  display: flex; align-items: center; gap: 14px;
+  min-height: 72px; padding: 14px 16px;
+  background: var(--panel); border: 1px solid var(--line);
+  border-radius: var(--radius);
+  text-decoration: none; color: var(--text);
+  transition: transform 0.15s, border-color 0.2s;
+}
+.social-btn:hover { border-color: var(--red); }
+.social-btn:active { transform: scale(0.98); }
+.social-icon {
+  width: 44px; height: 44px; flex-shrink: 0;
+  display: grid; place-items: center;
+  border-radius: 10px; font-weight: 900; font-size: 0.9rem;
+  background: var(--red-soft); color: var(--red);
+}
+.social-name { font-weight: 800; letter-spacing: 2px; }
+.social-handle { color: var(--muted); font-size: 0.8rem; }
+.social-arrow { margin-left: auto; color: var(--red); font-size: 1.2rem; }
+
+.empty { color: var(--muted); padding: 20px; text-align: center; border: 1px dashed var(--line); border-radius: var(--radius); }
+
+/* ---------- 10. Footer & toast ---------- */
+.footer {
+  text-align: center; padding: 20px 16px calc(20px + env(safe-area-inset-bottom));
+  border-top: 1px solid var(--line); color: var(--muted); font-size: 0.8rem;
+}
+.footer-small { font-size: 0.7rem; margin-top: 4px; opacity: 0.7; }
+
+.toast {
+  position: fixed; left: 50%; bottom: calc(24px + env(safe-area-inset-bottom));
+  transform: translate(-50%, 20px);
+  background: var(--red); color: #fff;
+  padding: 10px 18px; border-radius: 999px;
+  font-size: 0.85rem; font-weight: 700;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.25s, transform 0.25s;
+  z-index: 50;
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ---------- 11. Tablet & desktop ---------- */
+@media (min-width: 600px) {
+  .grid { grid-template-columns: repeat(2, 1fr); }
+  .menu { grid-template-columns: repeat(2, 1fr); }
+  .social-list { grid-template-columns: repeat(2, 1fr); }
+  .hero-title { font-size: 3.2rem; }
+}
+@media (min-width: 900px) {
+  .app { padding: 28px; }
+  .grid { grid-template-columns: repeat(3, 1fr); }
+}
+
+/* ---------- 12. Accessibility / low-end devices ---------- */
+@media (prefers-reduced-motion: reduce) {
+  * { animation: none !important; transition: none !important; }
+}

@@ -1,1 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0b0d" />
+  <meta name="description" content="My CODM loadouts, settings, sensitivity and social links." />
+  <title>CODM Loadout Hub</title>
+  <!-- Relative path: works on GitHub Pages -->
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
+  <!-- Top bar (shown on every section except Home) -->
+  <header class="topbar" id="topbar" hidden>
+    <button class="btn btn-ghost" id="backBtn" type="button" aria-label="Back to home">&#8592; HOME</button>
+    <span class="topbar-title" id="topbarTitle"></span>
+  </header>
+
+  <main class="app">
+
+    <!-- ================= HOME ================= -->
+    <section class="view" id="home" data-title="Home">
+      <div class="hero">
+        <p class="hero-tag">// CALL OF DUTY: MOBILE</p>
+        <h1 class="hero-title">LOADOUT <span>HUB</span></h1>
+
+        <div class="profile">
+          <div class="avatar" id="avatar" aria-hidden="true">P</div>
+          <div class="profile-info">
+            <p class="profile-label">OPERATOR</p>
+            <h2 class="profile-name" id="playerName">PLAYER</h2>
+            <p class="profile-sub" id="playerSub"></p>
+          </div>
+          <button class="btn btn-small" id="editNameBtn" type="button">EDIT</button>
+        </div>
+
+        <!-- Name editor (hidden until EDIT is tapped) -->
+        <div class="name-editor" id="nameEditor" hidden>
+          <input type="text" id="nameInput" maxlength="20" placeholder="Enter your name" autocomplete="off" />
+          <button class="btn btn-small btn-red" id="saveNameBtn" type="button">SAVE</button>
+        </div>
+      </div>
+
+      <nav class="menu" aria-label="Main menu">
+        <button class="menu-btn" data-target="loadout" type="button">
+          <span class="menu-num">01</span><span class="menu-name">LOADOUT</span>
+          <span class="menu-desc">Weapons &amp; attachments</span>
+        </button>
+        <button class="menu-btn" data-target="settings" type="button">
+          <span class="menu-num">02</span><span class="menu-name">BASIC SETTINGS</span>
+          <span class="menu-desc">Graphics, HUD, controls</span>
+        </button>
+        <button class="menu-btn" data-target="sensitivity" type="button">
+          <span class="menu-num">03</span><span class="menu-name">SENSITIVITY</span>
+          <span class="menu-desc">Camera, firing, gyro, ADS</span>
+        </button>
+        <button class="menu-btn" data-target="social" type="button">
+          <span class="menu-num">04</span><span class="menu-name">SOCIAL LINKS</span>
+          <span class="menu-desc">Follow my channels</span>
+        </button>
+      </nav>
+    </section>
+
+    <!-- ================= LOADOUT ================= -->
+    <section class="view" id="loadout" data-title="Loadout" hidden>
+      <h2 class="section-title">LOADOUT</h2>
+      <div class="segmented" id="modeSwitch" role="tablist" aria-label="Game mode"></div>
+      <div class="chips" id="categoryChips" aria-label="Weapon categories"></div>
+      <div class="grid" id="loadoutGrid"></div>
+    </section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section class="view" id="settings" data-title="Basic Settings" hidden>
+      <h2 class="section-title">BASIC SETTINGS</h2>
+      <div class="grid" id="settingsGrid"></div>
+    </section>
+
+    <!-- ================= SENSITIVITY ================= -->
+    <section class="view" id="sensitivity" data-title="Sensitivity" hidden>
+      <h2 class="section-title">SENSITIVITY</h2>
+      <div class="chips" id="sensTabs" role="tablist" aria-label="Sensitivity types"></div>
+      <div class="sens-actions">
+        <button class="btn btn-small" id="copyAllSens" type="button">COPY ALL IN TAB</button>
+      </div>
+      <div class="grid" id="sensGrid"></div>
+    </section>
+
+    <!-- ================= SOCIAL ================= -->
+    <section class="view" id="social" data-title="Social Links" hidden>
+      <h2 class="section-title">SOCIAL LINKS</h2>
+      <div class="social-list" id="socialList"></div>
+    </section>
+
+  </main>
+
+  <footer class="footer">
+    <p>&copy; <span id="year"></span> <span id="footerName">Player</span>. All rights reserved.</p>
+    <p class="footer-small">Fan-made page. Not affiliated with Activision or TiMi Studio.</p>
+  </footer>
+
+  <!-- Small popup message (e.g. "Copied!") -->
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script src="script.js"></script>
+</body>
+</html>
